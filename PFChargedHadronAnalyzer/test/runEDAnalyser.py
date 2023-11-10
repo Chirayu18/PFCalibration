@@ -7,7 +7,7 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
 
-process = cms.Process('RECO',Run3)
+process = cms.Process('ANA',Run3)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -149,10 +149,10 @@ process.raw2digi_step = cms.Path(process.RawToDigi)
 process.L1Reco_step = cms.Path(process.L1Reco)
 process.reconstruction_step = cms.Path(process.reconstruction)
 process.recosim_step = cms.Path(process.recosim)
-process.endjob_step = cms.EndPath(process.endOfProcess)
-process.RECOSIMoutput_step = cms.EndPath(process.RECOSIMoutput)
+#process.endjob_step = cms.EndPath(process.endOfProcess)
+#process.RECOSIMoutput_step = cms.EndPath(process.RECOSIMoutput)
 process.EDA = cms.EndPath(process.pfChargedHadronAnalyzer)
-process.gRR = cms.EndPath(process.genReReco)
+#process.gRR = cms.EndPath(process.genReReco)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.EDA)

@@ -39,13 +39,46 @@ process.source = cms.Source("PoolSource",
 #    fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Summer21DR/Single_Pion_gun_E_200to500_14TeV_pythia8/GEN-SIM-RECO/NoPURAWRECO_120X_mcRun3_2021_realistic_v6-v2/260000/0788ebab-26eb-410e-97b0-868877d34e33.root'),
 #    fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Summer21DR/Single_Pion_gun_E_2to200_14TeV_pythia8/GEN-SIM-RECO/NoPURAWRECO_120X_mcRun3_2021_realistic_v6-v2/270000/00617b79-69fd-4239-a0a6-cde116b7abe1.root'),
 #    fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Winter23Reco/SinglePionGun_E0p2to200/GEN-SIM-RECO/EpsilonPU_126X_mcRun3_2023_forPU65_v1-v2/2550000/007001ee-f0d5-4161-99ea-f286ad7136e6.root'),
-    fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Winter23Reco/SinglePionGun_E0p2to200/GEN-SIM-RECO/NoPUGTv4_GTv4_126X_mcRun3_2023_forPU65_v4-v2/2540000/02bc0753-d6e6-4626-9ec3-33ccd7501292.root'),
+    #fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Winter23Reco/SinglePionGun_E0p2to200/GEN-SIM-RECO/NoPUGTv4_GTv4_126X_mcRun3_2023_forPU65_v4-v2/2540000/02bc0753-d6e6-4626-9ec3-33ccd7501292.root'),
+    fileNames = cms.untracked.vstring('file:step3_reco.root'), # input root file name
     secondaryFileNames = cms.untracked.vstring()
 )
 
+#process.options = cms.untracked.PSet(
+#
+#)
 process.options = cms.untracked.PSet(
-
+    FailPath = cms.untracked.vstring(),
+    IgnoreCompletely = cms.untracked.vstring(),
+    Rethrow = cms.untracked.vstring(),
+    SkipEvent = cms.untracked.vstring(),
+    allowUnscheduled = cms.obsolete.untracked.bool,
+    canDeleteEarly = cms.untracked.vstring(),
+    deleteNonConsumedUnscheduledModules = cms.untracked.bool(True),
+    dumpOptions = cms.untracked.bool(False),
+    emptyRunLumiMode = cms.obsolete.untracked.string,
+    eventSetup = cms.untracked.PSet(
+        forceNumberOfConcurrentIOVs = cms.untracked.PSet(
+            allowAnyLabel_=cms.required.untracked.uint32
+        ),
+        numberOfConcurrentIOVs = cms.untracked.uint32(0)
+    ),
+    fileMode = cms.untracked.string('FULLMERGE'),
+    forceEventSetupCacheClearOnNewRun = cms.untracked.bool(False),
+    makeTriggerResults = cms.obsolete.untracked.bool,
+    numberOfConcurrentLuminosityBlocks = cms.untracked.uint32(0),
+    numberOfConcurrentRuns = cms.untracked.uint32(1),
+    numberOfStreams = cms.untracked.uint32(0),
+    numberOfThreads = cms.untracked.uint32(1),
+    printDependencies = cms.untracked.bool(False),
+    sizeOfStackForThreadsInKB = cms.optional.untracked.uint32,
+    throwIfIllegalParameter = cms.untracked.bool(True),
+    wantSummary = cms.untracked.bool(False)
 )
+process.options.numberOfThreads = 1
+process.options.numberOfStreams = 0
+process.options.numberOfConcurrentLuminosityBlocks = 2
+process.options.eventSetup.numberOfConcurrentIOVs = 1
 
 # Production Info
 # process.configurationMetadata = cms.untracked.PSet(
@@ -164,6 +197,8 @@ process.pfChargedHadronAnalyzer = cms.EDAnalyzer(
     PFSimParticles = cms.InputTag("particleFlowSimParticle"),
     EcalPFClusters = cms.InputTag("particleFlowClusterECAL"),
     HcalPFClusters = cms.InputTag("particleFlowClusterHCAL"),
+    EcalPFrechit = cms.InputTag("particleFlowRecHitECAL:Cleaned"),
+    HcalPFrechit = cms.InputTag("particleFlowRecHitHBHE:Cleaned"),
     ptMin = cms.double(1.),                     # Minimum pt                                                                         
     pMin = cms.double(1.),                      # Minimum p                                                                          
     nPixMin = cms.int32(2),                     # Nb of pixel hits                                                                   
