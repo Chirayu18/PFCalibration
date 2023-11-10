@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=36
+#PBS -m ea
+
+# setup cmssw environment
+cd $PBS_O_WORKDIR
+pwd
+source ~cmssoft/shrc
+eval `scramv1 runtime -sh`
+
+# read user proxy
+#export X509_USER_PROXY=/cms/data/$USER/.x509_user_proxy
+
+# run your job
+cmsRun step3_RAW2DIGI_L1Reco_RECO_RECOSIM_EI_PAT_VALIDATION_DQM.py
+
