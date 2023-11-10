@@ -25,7 +25,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10000), #NEvents
+    input = cms.untracked.int32(-1), #NEvents
     output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
 )
 
@@ -33,7 +33,8 @@ process.maxEvents = cms.untracked.PSet(
 process.source = cms.Source("PoolSource",
 #    fileNames = cms.untracked.vstring('file:JME-Run3Summer21DRPremix-00001_1_1.root'),
                             #    fileNames = cms.untracked.vstring('root://se01.indiacms.res.in//store/user/bkansal/step2/PGun_step2_DIGI_1200_2021_2_200_Sep17_tmp/CRAB_UserFiles/crab_PGun_step2_DIGI_1200_2021_2_200_Sep17_tmp/210918_034925/0000/step2_99.root'),
-      fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Winter23Digi/SinglePionGun_E200to500/GEN-SIM-RAW/NoPUGTv4_126X_mcRun3_2023_forPU65_v4-v2/50000/00161083-8bd0-4a00-b462-c5e5141ab85c.root'),
+      #fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Winter23Digi/SinglePionGun_E200to500/GEN-SIM-RAW/NoPUGTv4_126X_mcRun3_2023_forPU65_v4-v2/50000/00161083-8bd0-4a00-b462-c5e5141ab85c.root'),
+      fileNames = cms.untracked.vstring('/store/mc/Run3Winter23Digi/SinglePionGun_E200to500/GEN-SIM-RAW/NoPUGTv4_126X_mcRun3_2023_forPU65_v4-v2/50000/00161083-8bd0-4a00-b462-c5e5141ab85c.root'),
 #     fileNames = cms.untracked.vstring('root://eos.cms.rcac.purdue.edu:1094//store/mc/Run3Winter23Digi/SinglePionGun_E0p2to200/GEN-SIM-RAW/NoPUGTv4_126X_mcRun3_2023_forPU65_v4-v2/30000/69d9ccbd-2571-4611-bae5-c36a13f83ec9.root'),
 #     fileNames = cms.untracked.vstring('root://cms-xrd-global.cern.ch//store/mc/Run3Winter23Digi/SinglePionGun_E0p2to200/GEN-SIM-RAW/NoPUGTv4_126X_mcRun3_2023_forPU65_v4-v2/2540000/01363ca6-a267-4d05-adda-18d4e6f374ad.root'),
 #     fileNames = cms.untracked.vstring('file:/eos/cms/store/mc/Run3Winter23Reco/SinglePionGun_E0p2to200/GEN-SIM-RECO/EpsilonPU_126X_mcRun3_2023_forPU65_v1-v2/2550000/007001ee-f0d5-4161-99ea-f286ad7136e6.root'),
@@ -166,7 +167,7 @@ from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 
 #Setup FWK for multithreaded
-process.options.numberOfThreads = 1
+process.options.numberOfThreads = 36
 process.options.numberOfStreams = 0
 process.options.numberOfConcurrentLuminosityBlocks = 2
 process.options.eventSetup.numberOfConcurrentIOVs = 1
